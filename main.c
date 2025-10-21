@@ -6,47 +6,73 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 20:53:33 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/20 22:05:38 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/10/21 18:53:06 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 #include <stdio.h>
 
 
-int ft_printf(const char *str, ...)
+int	ft_printf(const char *str, ...)
 {
-    va_list args;
-    int total_length = 0;
-    va_start(args,str);
-    
-    while (*str)
-    {
-        if (*str == '%')
-        {
-            str++;
-            //check_flags(str);
-            switch(*str)
-            {
-                case 'c':
+	va_list	args;
+	int	total_length;
+	t_flags	flags;
+
+	total_length = 0;
+	ft_memset(&flags, 0, sizeof(flags));
+	va_start(args,str);
+	while (*str)
+	{
+		if (*str == '%')
 		{
-                    int c = va_arg(args, int);
-                    ft_putchar_fd(c, 1);
-                    break ;
-		}
-                case 's':
-		{
-                    char *s = va_arg(args, char *);
-                    ft_putstr_fd(s, 1);
-                    break ;
-		}
-                case 'p':
-		{
-		     void *ptr = va_arg(args, void *);
-	             //printf("%ld %ld\n", sizeof((unsigned long)ptr), (unsigned long)ptr);
-		     pointer_hex_convert((unsigned long)ptr);
-		     //ft_putstr_fd(result , 1);
-                     break;
-		}
+			str++;
+			while (*str == '-' || *str == '0' || *str == '#' || *str == '+' || *str == ' '				)
+			{
+				if (*str == '-') flags.minus = 1;
+				if (*str == '+') flags.plus = 1;
+				if (*str == '#') flags.hash = 1;
+				if (*str == '0') flags.zero = 1;
+				if (*str == ' ') flags.space = 1;
+				str++;
+			}
+			if (ft_isdigit(*str))
+			{
+				flags.width = ft_atoi(str);
+				while (ft_isdigit(*str)) str++;
+			}
+			if (*str == '.')
+			{
+				flags.dot = 1;
+				str++;
+			}
+			if (ft_isdigit(*str))
+			{
+				flags.precision = ft_atoi(str);
+				while (ft_isdigit(*str)) str++;
+			} else flags.precision = 0;
+			switch(*str)
+			{
+				case 'c':
+				{
+					int c = va_arg(args, int);
+					ft_putchar_fd(c, 1);
+					break ;
+				}
+				case 's':
+				{
+					char *s = va_arg(args, char *);
+					ft_putstr_fd(s, 1);
+					break ;
+				}
+				case 'p':
+				{
+					void *ptr = va_arg(args, void *);
+					char *result = pointer_hex_convert((unsigned long)ptr);
+					ft_putstr_fd(result , 1);
+					free(result);
+					break;
+				}
 		/*
                 case 'd':
                     float n = va_arg(args, float);
@@ -80,11 +106,10 @@ int ft_printf(const char *str, ...)
 		*/
             }
         }
-        else if (*str == '\n') 
+        else if (*str == '\n')
             ft_putchar_fd('\n', 1);
-        else 
+        else
             ft_putchar_fd(*str, 1);
-                
         str++;
         }
     va_end(args);
@@ -94,8 +119,20 @@ int ft_printf(const char *str, ...)
 
 int main()
 {
-		char *test = "hello world";
-		ft_printf("the result is %p\n", test);
-		printf("the origin : %p \n", test);
-		return 0;
+	printf("---------------test character-------------------\n");
+	char c = 'C';
+	printf("The original : %c \n", c);
+	ft_printf("My function : %c \n", c);
+	printf("---------------test string-------------------\n");
+	char *test = "hello world";
+	printf("The original : %s \n", test);
+	ft_printf("My function : %s \n", test);
+	printf("---------------test pointer-------------------\n");
+        char *test_p = "hello world";
+        printf("The original: %p \n", test_p);
+        ft_printf("My function : %p \n", test_p);
+	printf("---------------test-------------------\n");
+	
+
+	return 0;
 }

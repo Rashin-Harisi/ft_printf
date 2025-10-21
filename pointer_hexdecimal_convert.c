@@ -6,12 +6,13 @@
 /*   By: rabdolho <rabdolho@student.42vienna.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 13:43:44 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/20 22:21:52 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/10/21 14:10:12 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
-#include <stdio.h>
 #include <stdlib.h>
+
+/*
 void binary_print(unsigned long n)
 {
         int bits = sizeof(n)*8;
@@ -20,31 +21,39 @@ void binary_print(unsigned long n)
                 printf("%d",(int)((n >> i) & 1));
         }
 }
+*/
 
-char *pointer_hex_convert(unsigned long ptr)
+static void	initial_value(char *str, int *count)
 {
-	char *hex = "0123456789abcdef";
-	char *result;
-	unsigned long number = ptr;
-	binary_print(ptr);
-        printf("\n");
-	int count = 1;
+	str[0] = '0';
+	str[1] = 'x';
+	str[*count + 1] = '\0';
+}
+
+char	*pointer_hex_convert(unsigned long ptr)
+{
+	char		*hex;
+	char		*result;
+	unsigned long	number;
+	int		count;
+
+	hex = "0123456789abcdef";
+	number = ptr;
+	count = 1;
 	while (number != 0)
 	{
-		number = number /16; 
+		number = number / 16;
 		count++;
 	}
-	result = malloc((count+ 1) * sizeof(char));
-	if(!result) return NULL;
-	result[0] = '0';
-        result[1] = 'x';
-	result[count + 1] = '\0';
+	result = malloc((count + 1) * sizeof(char));
+	if (!result)
+		return (NULL);
+	initial_value(result, &count);
 	while (count > 1)
 	{
-		result[count] =hex[ptr % 16];
-		ptr = ptr /16;
+		result[count] = hex[ptr % 16];
+		ptr = ptr / 16;
 		count--;
 	}
-	printf("the hexa is : %s\n", result);
-	return (result);		
+	return (result);
 }

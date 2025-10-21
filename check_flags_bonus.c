@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   check_flags_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/18 17:39:40 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/21 17:20:09 by rabdolho         ###   ########.fr       */
+/*   Created: 2025/10/21 14:36:43 by rabdolho          #+#    #+#             */
+/*   Updated: 2025/10/21 17:31:05 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef	FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <stddef.h>
-# include "libft/libft.h"
-# include <stdarg.h>
-
-
-typedef struct	s_flags
+int	flag_identifier(char c)
 {
-	int	minus;
-	int	zero;
-	int	dot; //bolean to represent the precision defined or not.
-	int	width;
-	int	precision;
-	int	hash;
-	int	space;
-	int	plus;
-}t_flags;
+	int	flag;
 
-char *pointer_hex_convert(unsigned long ptr);
+	flag = 0;
+	if (c == '-' || c == '0' || c == '.' || c == '#' || c == ' ' || c == '+'
+}
+void	check_flags_bonus(char *str)
+{
 
-#endif
+	
+}
