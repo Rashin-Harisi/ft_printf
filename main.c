@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 20:53:33 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/21 18:53:06 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/10/22 18:18:41 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -27,50 +27,22 @@ int	ft_printf(const char *str, ...)
 		if (*str == '%')
 		{
 			str++;
-			while (*str == '-' || *str == '0' || *str == '#' || *str == '+' || *str == ' '				)
-			{
-				if (*str == '-') flags.minus = 1;
-				if (*str == '+') flags.plus = 1;
-				if (*str == '#') flags.hash = 1;
-				if (*str == '0') flags.zero = 1;
-				if (*str == ' ') flags.space = 1;
-				str++;
-			}
-			if (ft_isdigit(*str))
-			{
-				flags.width = ft_atoi(str);
-				while (ft_isdigit(*str)) str++;
-			}
-			if (*str == '.')
-			{
-				flags.dot = 1;
-				str++;
-			}
-			if (ft_isdigit(*str))
-			{
-				flags.precision = ft_atoi(str);
-				while (ft_isdigit(*str)) str++;
-			} else flags.precision = 0;
+			check_flags(&flags, str);
 			switch(*str)
 			{
 				case 'c':
 				{
-					int c = va_arg(args, int);
-					ft_putchar_fd(c, 1);
+					print_char(va_arg(args, int),&flags);
 					break ;
 				}
 				case 's':
 				{
-					char *s = va_arg(args, char *);
-					ft_putstr_fd(s, 1);
+					print_string(va_arg(args, char *),&flags);
 					break ;
 				}
 				case 'p':
 				{
-					void *ptr = va_arg(args, void *);
-					char *result = pointer_hex_convert((unsigned long)ptr);
-					ft_putstr_fd(result , 1);
-					free(result);
+					print_pointer(va_arg(args, void *), &flags);
 					break;
 				}
 		/*

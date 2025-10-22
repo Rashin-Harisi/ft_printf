@@ -6,20 +6,35 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 14:36:43 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/21 17:31:05 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/10/22 18:15:53 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-int	flag_identifier(char c)
+void	check_flags(t_flags *flags, char *str)
 {
-	int	flag;
-
-	flag = 0;
-	if (c == '-' || c == '0' || c == '.' || c == '#' || c == ' ' || c == '+'
-}
-void	check_flags_bonus(char *str)
-{
-
-	
+	while (*str == '-' || *str == '0' || *str == '#' || *str == '+' || *str == ' '                          )
+	{
+		if (*str == '-') flags.minus = 1;
+		if (*str == '+') flags.plus = 1;
+		if (*str == '#') flags.hash = 1;
+		if (*str == '0') flags.zero = 1;
+		if (*str == ' ') flags.space = 1;
+		str++;
+	}
+	if (ft_isdigit(*str))
+	{
+		flags.width = ft_atoi(str);
+		while (ft_isdigit(*str)) str++;
+	}
+	if (*str == '.')
+	{
+		flags.dot = 1;
+		str++;
+	}
+	if (ft_isdigit(*str))
+	{
+		flags.precision = ft_atoi(str);
+		while (ft_isdigit(*str)) str++;
+	} else flags.precision = 0;
 }
