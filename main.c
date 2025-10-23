@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 20:53:33 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/23 15:29:29 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/10/23 21:05:10 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -53,14 +53,17 @@ int	ft_printf(const char *str, ...)
 				}
 				case 'u':
 				{
+					print_unsigned(va_arg(args, unsigned int), &flags, &total_length);
 					break ;
 				}
 				case 'x':
+					print_hex_small(va_arg(args, unsigned int), &flags, &total_length);
 				{
 					break ;
 				}
 				case 'X':
 				{
+					print_hex_big(va_arg(args, unsigned int), &flags, &total_length);
 					break ;
 				}
 				case '%':
@@ -95,9 +98,19 @@ int main()
         char *test_p = "hello world";
         printf("The original: |%020p| \n", test_p);
         ft_printf("My function : |%020p| \n", test_p);
-	printf("---------------test-------------------\n");
+	printf("---------------test integer and decimal -------------------\n");
 	printf("the origin : |%-05d| \n" , -42);
 	ft_printf("my finction : |%-05d| \n", -42);
+	printf("---------------test unsigned int-------------------\n");
+	printf("the origin: |%015.11u| \n", 4294967295);
+	ft_printf("my function: |%015.11u| \n", 4294967295);
+        printf("---------------test hex-small-------------------\n");
+        printf("the origin: |%#015.11x| \n", 4294967295);
+        ft_printf("my function: |%#015.11x| \n", 4294967295);
+        printf("---------------test hex-big-------------------\n");
+        printf("the origin: |%#015.11X| \n", 4294967295);
+        ft_printf("my function: |%#015.11X| \n", 4294967295);
+
 
 	return 0;
 }
