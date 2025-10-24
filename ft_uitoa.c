@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:14:16 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/23 16:32:41 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/10/24 11:47:28 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stddef.h>
@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <limits.h>
 
-static void	count_handler(size_t *count,unsigned int number)
+static void	count_handler(size_t *count, unsigned int number)
 {
 	while (number != 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:00:30 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/23 15:28:55 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/10/24 14:57:45 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static char	*sign_nbr_handler(char *sign,int n, t_flags *flags)
+static char	*sign_nbr_handler(char *sign, int n, t_flags *flags)
 {
 	long long	nbr;
 
@@ -31,14 +31,61 @@ static char	*sign_nbr_handler(char *sign,int n, t_flags *flags)
 	return (ft_itoa(nbr));
 }
 
+static void	not_flag_minus(int *width, int *total_length, int *zero_precision, char *sign)
+{
+	if (flags->dot)
+	{
+		while ((*width)--)
+		{ 
+			ft_putchar_fd(' ', 1);
+			(*total_length)++;
+		}
+		if (*sign)
+		{
+			ft_putchar_fd(sign, 1);
+			(*total_length)++;
+			(*sign) = 0;
+		}
+		while ((*zero_precision)-- > 0)
+		{
+			ft_putchar_fd('0', 1);
+			(*total_length)++;
+		}
+	}
+	else if (flags->zero)
+		is_flag_zero(sign, total_length, width);
+	else
+	{
+		while ((*width)--)
+		{
+			ft_putchar_fd(' ', 1);
+			(*total_length)++;
+		}
+	}
+}
+
+static void	is_flag_zero(char *sign, int *total_length, int *width)
+{
+	if (*sign)
+	{
+		ft_putchar_fd(sign, 1);
+		(*total_length)++;
+		*sign = 0;
+	}
+	while ((*width)--)
+	{
+		ft_putchar_fd('0', 1);
+		(*total_length)++;
+	}
+}
 
 void	print_decimal(int n, t_flags *flags, int *total_length)
 {
-	int	width;
+	int		width;
 	char	*nbr;
-	int	length;
+	int		length;
 	char	sign;
-	int	zero_precision;
+	int		zero_precision;
 
 	sign = 0;
 	zero_precision = 0;
@@ -55,49 +102,7 @@ void	print_decimal(int n, t_flags *flags, int *total_length)
 	if (width < 0)
 		width = 0;
 	if (flags->minus == 0)
-	{
-		if (flags->dot)
-		{
-			while(width--)
-                	{
-                        	ft_putchar_fd(' ', 1);
-                        	(*total_length)++;
-                	}
-			if (sign)
-			{
-				ft_putchar_fd(sign, 1);
-				(*total_length)++;
-				sign = 0;
-			}
-			while (zero_precision-- > 0)
-                        {
-                                ft_putchar_fd('0', 1);
-                                (*total_length)++;
-                        }
-		}
-		else if (flags->zero)
-		{
-			if (sign)
-                        {
-                                ft_putchar_fd(sign, 1);
-                                (*total_length)++;
-                                sign = 0;
-                        }
-			while (width--)
-			{
-				ft_putchar_fd('0', 1);
-				(*total_length)++;
-			}
-		}
-		else
-		{
-			while(width--)
-			{
-				ft_putchar_fd(' ', 1);
-				(*total_length)++;
-			}
-		}
-	}
+		not_flag_minus(flags,&width, total_length, &sign);
 	if (sign)
 	{
 		ft_putchar_fd(sign, 1);
@@ -108,10 +113,9 @@ void	print_decimal(int n, t_flags *flags, int *total_length)
 		ft_putchar_fd('0', 1);
 		(*total_length)++;
 	}
-	
 	write(1, nbr, length);
 	(*total_length) += length;
-	if ( flags->minus == 1)
+	if (flags->minus == 1)
 	{
 		while (width--)
 		{
