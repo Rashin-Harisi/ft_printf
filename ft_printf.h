@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 17:39:40 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/23 21:04:12 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/10/25 22:07:18 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef	FT_PRINTF_H
@@ -34,6 +34,14 @@ void	print_char(char c,t_flags *flags, int *total_length);
 void    print_string(char *str, t_flags *flags, int *total_length);
 void    print_pointer(void *ptr, t_flags *flags, int *total_length);
 void    print_decimal(int n, t_flags *flags, int *total_length);
+char    *sign_nbr_handler_decimal(char *sign, int n, t_flags *flags);
+int     width_handler_decimal(t_flags *flags, int *zero_precision,
+	int length, char sign);
+void    sign_zero_handler_decimal(char *sign, int *total_length,
+	int *zero_precision);
+void    no_flags_minus_decimal(t_flags *flags, int *width,
+	int *total_length, char *sign);
+void    yes_flags_minus_decimal(int *width, int *total_length);
 char    *ft_utoa(unsigned int n);
 void    print_unsigned(unsigned int n, t_flags *flags, int *total_length);
 void    print_hex_small(unsigned int n, t_flags *flags, int *total_length);
