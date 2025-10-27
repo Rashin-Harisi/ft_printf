@@ -1,24 +1,47 @@
 NAME		= libftprintf.a
-SRC		= 
-OBJ		= $(SRC:.c=.o)
-BONUS_SRC	= 
-BONUS_OBJ	= $(BONUS_SRC:.c=.o)
-CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+
+SRC			= ft_printf.c\
+			  check_flags_bonus.c\
+			  helper_print_decimal.c\
+			  ft_uitoa.c\
+			  print_char.c\
+			  print_decimal.c\
+			  print_hex_big.c\
+			  print_hex_small.c\
+			  print_pointer.c\
+			  print_string.c\
+			  print_unsigned.c
+OBJ			= $(SRC:.c=.o)
+
+LIBFT_PATH  = ./libft
+LIBFT		= $(LIBFT_PATH)/libft.a
+
+
+CC			= cc
+CFLAGS		= -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+bonus: all
+
+
+$(NAME): $(LIBFT) $(OBJ)
+	cp $(LIBFT) $(NAME)
 	ar rcs $(NAME) $(OBJ)
 	
-bonus: $(OBJ) $(BONUS_OBJ)
-	ar rcs $(NAME) $(OBJ) $(BONUS_OBJ)
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_PATH)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ) $(BONUS_OBJ)
+	rm -f $(OBJ)
+	$(MAKE) clean -C $(LIBFT_PATH)
 
 fclean: clean
 	rm -f $(NAME)
+	$(MAKE) fclean -C $(LIBFT_PATH)
 
 re: fclean all
 
