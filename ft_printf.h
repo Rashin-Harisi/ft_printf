@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 17:39:40 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/27 13:17:26 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/10/27 18:50:09 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FT_PRINTF_H
@@ -28,6 +28,7 @@ typedef struct s_flags
 	int	plus;
 }	t_flags;
 
+int     ft_printf(const char *str, ...);
 void	check_flags(t_flags *flags, const char **str);
 void	print_char(char c, t_flags *flags, int *total_length);
 void	print_string(char *str, t_flags *flags, int *total_length);
