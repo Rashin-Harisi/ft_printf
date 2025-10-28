@@ -6,37 +6,37 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 20:53:33 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/27 15:45:10 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/10/28 19:24:19 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 #include <stdio.h>
 
-static void	print_handler(const char str, va_list args,
+static void	print_handler(const char str, va_list *args,
 	t_flags *flags, int *total_length)
 {
 	if (str == 'c')
-		print_char(va_arg(args, int), flags, total_length);
-	if (str == 's')
-		print_string(va_arg(args, char *), flags, total_length);
-	if (str == 'p')
-		print_pointer(va_arg(args, void *), flags, total_length);
-	if (str == 'd' || str == 'i')
-		print_decimal(va_arg(args, int), flags, total_length);
-	if (str == 'u')
-		print_unsigned(va_arg(args, unsigned int), flags, total_length);
-	if (str == 'x')
-		print_hex_small(va_arg(args, unsigned int), flags, total_length);
-	if (str == 'X')
-		print_hex_big(va_arg(args, unsigned int), flags, total_length);
-	if (str == '%')
+		print_char(va_arg(*args, int), flags, total_length);
+	else if (str == 's')
+		print_string(va_arg(*args, char *), flags, total_length);
+	else if (str == 'p')
+		print_pointer(va_arg(*args, void *), flags, total_length);
+	else if (str == 'd' || str == 'i')
+		print_decimal(va_arg(*args, int), flags, total_length);
+	else if (str == 'u')
+		print_unsigned(va_arg(*args, unsigned int), flags, total_length);
+	else if (str == 'x')
+		print_hex_small(va_arg(*args, unsigned int), flags, total_length);
+	else if (str == 'X')
+		print_hex_big(va_arg(*args, unsigned int), flags, total_length);
+	else if (str == '%')
 	{
 		ft_putchar_fd('%', 1);
 		(*total_length)++;
 	}
 }
 
-static void	format_specifier_handler(const char **str, va_list args,
+static void	format_specifier_handler(const char **str, va_list *args,
 	t_flags *flags, int *total_length)
 {
 	(*str)++;
@@ -59,13 +59,15 @@ int	ft_printf(const char *str, ...)
 	int		total_length;
 	t_flags	flags;
 
+	if (!str || *str == '\0')
+		return (0);
 	total_length = 0;
 	ft_memset(&flags, 0, sizeof(flags));
 	va_start(args, str);
 	while (*str)
 	{
 		if (*str == '%')
-			format_specifier_handler(&str, args, &flags, &total_length);
+			format_specifier_handler(&str, &args, &flags, &total_length);
 		else if (*str == '\n')
 		{
 			ft_putchar_fd('\n', 1);

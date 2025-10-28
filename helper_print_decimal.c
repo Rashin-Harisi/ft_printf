@@ -6,22 +6,25 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:00:30 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/25 22:07:52 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/10/28 18:55:49 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdio.h>
 
 char	*sign_nbr_handler_decimal(char *sign, int n, t_flags *flags)
 {
-	long long	nbr;
+	int	nbr;
 
 	nbr = n;
 	if (n < 0)
 	{
-		nbr = -(long long)n;
 		*sign = '-';
+		if (n == -2147483648)
+			return (ft_strdup("2147483648"));
+		nbr = -n;
 	}
 	else if (flags->plus == 1)
 		*sign = '+';
@@ -48,14 +51,13 @@ int	width_handler_decimal(t_flags *flags, int *zero_precision,
 	return (width);
 }
 
-void	sign_zero_handler_decimal(char *sign, int *total_length,
+void	sign_zero_handler_decimal(char sign, int *total_length,
 	int *zero_precision)
 {
-	if (*sign)
+	if (sign)
 	{
-		ft_putchar_fd(*sign, 1);
+		ft_putchar_fd(sign, 1);
 		(*total_length)++;
-		(*sign) = 0;
 	}
 	while ((*zero_precision)-- > 0)
 	{

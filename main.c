@@ -5,103 +5,146 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/27 18:38:02 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/27 18:38:09 by rabdolho         ###   ########.fr       */
+/*   Created: 2025/10/28 21:35:09 by rabdolho          #+#    #+#             */
+/*   Updated: 2025/10/28 21:35:20 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
+
+// int main() {
+//     // Testing format specifiers with different types of arguments
+//     char character = 'A';
+//     char *string = "Hello, world!";
+// 	char *string2 = NULL;
+//     char *string3;
+//     char  mina[10];
+//     int integer = 42;
+//     unsigned int unsigned_integer = 123;
+//     void *pointer = (void *)0x12345678;
+//     int a;
+//     int b = 0;
+//     int c = INT_MIN;
+//     // Testing each format specifier
+//     ft_printf("%d\n", b);
+//     printf("%d\n\n", b);
+    
+//     ft_printf("%d\n", c);
+//     printf("%d\n\n", c);
+
+//     ft_printf("hello%s mina\n", mina);
+//     printf("hello%s mina\n\n", mina);
+
+
+
+
+//     printf("|%d|\n", ft_printf("Character: %c\n", character));
+//     printf("|%d|\n", printf("Character: %c\n", character));
+//     printf("|%d|\n", ft_printf("String: %s\n", string));
+//     printf("|%d|\n", printf("String: %s\n", string));
+//     printf("|%d|\n", ft_printf("String = NULL: %s\n", string2));
+//     printf("|%d|\n", printf("String = NULL: %s\n", string2)); 
+//     	int num_null_test2 = ft_printf("String = EMPTY: %s\n", string3);
+//     	int num_null_main2 = printf("String = EMPTY: %s\n", string3);
+
+//     printf("|%d|\n", ft_printf("just one persent:%\n"));
+//     printf("|%d|\n", printf("just one persent:%\n"));
+//     printf("|%d|\n", ft_printf("Percentage: %%\n"));
+//     printf("|%d|\n", printf("Percentage: %%\n"));
+
+
+//     printf("|%d|\n", ft_printf("Pointer: %p\n", pointer));
+//     printf("|%d|\n", printf("Pointer: %p\n", pointer));
+//     printf("|%d|\n", ft_printf("Decimal Integer: %d\n", integer));
+//     printf("|%d|\n", printf("Decimal Integer: %d\n", integer));
+//     printf("|%d|\n", ft_printf("Decimal Integer (unsigned): %u\n", unsigned_integer));
+//     printf("|%d|\n", printf("Decimal Integer (unsigned): %u\n", unsigned_integer));
+//     printf("|%d|\n", ft_printf("Hexadecimal Integer: %x\n", integer));
+//     printf("|%d|\n", printf("Hexadecimal Integer: %x\n", integer));
+//     printf("|%d|\n", ft_printf("Hexadecimal Integer (uppercase): %X\n", integer));
+//     printf("|%d|\n", printf("Hexadecimal Integer (uppercase): %X\n", integer));
+//     printf("|%d|\n", ft_printf("test:%d\n", a));
+//     printf("|%d|\n", printf("main:%d\n", a));
+//     printf("|%d|\n", ft_printf("print here the null\n"));
+//     printf("|%d|\n", printf("print here the null\n"));
+// 	int num_null_test = ft_printf(NULL);
+// 	int num_null_main = printf(NULL);
+//     printf("|%d|\n", ft_printf("test:%d\n", num_null_test));
+//     printf("|%d|\n", printf("main:%d\n", num_null_main));
+
+//     printf("|%d|\n", ft_printf("test:%d, %s, %c, %X\n", 1234, "testtest", 200, 8978));
+//     printf("|%d|\n", printf("main:%d, %s, %c, %X\n", 1234, "testtest", 200, 8978));
+
+//     return (0);
+// }
+
+
+
 #include <stdio.h>
 #include <limits.h>
 
-int main(void)
-{
-    int ret_printf, ret_ft;
-    char c = 'A';
-    char *s = "Hello, world!";
-    char *null_s = NULL;
-    int d = 42;
-    int neg = -42;
-    int zero = 0;
-    unsigned int u = 4294967295U; // UINT_MAX
-    void *p = &d;
-    void *null_p = NULL;
+// Prototype for your ft_printf function
+int ft_printf(const char *format, ...);
 
-    printf("========== CHARACTER TESTS ==========\n");
-    ret_ft = ft_printf("ft : |%c|\n", c);
-    ret_printf = printf("sys: |%c|\n\n", c);
-    printf("return(ft/sys): %d / %d\n\n", ret_ft, ret_printf);
+int main() {
+    char character = 'A';
+    char *string = "Hello, World!";
+    char *null_string = NULL;
+    int integer = 42;
+    int negative_integer = -42;
+    unsigned int unsigned_integer = 42;
+    unsigned int large_unsigned_integer = UINT_MAX;
+    void *pointer = &integer;
 
-    printf("========== STRING TESTS ==========\n");
-    ret_ft = ft_printf("ft : |%s|\n", s);
-    ret_printf = printf("sys: |%s|\n\n", s);
-    printf("return(ft/sys): %d / %d\n\n", ret_ft, ret_printf);
+    // Character
+    printf("|%d|\n", ft_printf("Character: %c\n", character));
+    printf("|%d|\n", printf("Character: %c\n", character));
 
-    ret_ft = ft_printf("ft : |%s|\n", null_s);
-    ret_printf = printf("sys: |%s|\n\n", null_s);
-    printf("return(ft/sys): %d / %d\n\n", ret_ft, ret_printf);
+    // String
+    printf("|%d|\n", ft_printf("String: %s\n", string));
+    printf("|%d|\n", printf("String: %s\n", string));
+    
+    // Null string
+    printf("|%d|\n", ft_printf("Null String: %s\n", null_string));
+    printf("|%d|\n", printf("Null String: %s\n", null_string));
+    
+    // Integer
+    printf("|%d|\n", ft_printf("Integer: %d\n", integer));
+    printf("|%d|\n", printf("Integer: %d\n", integer));
 
-    ret_ft = ft_printf("ft : |%s|\n", "");
-    ret_printf = printf("sys: |%s|\n\n", "");
-    printf("return(ft/sys): %d / %d\n\n", ret_ft, ret_printf);
+    // Negative integer
+    printf("|%d|\n", ft_printf("Negative Integer: %d\n", negative_integer));
+    printf("|%d|\n", printf("Negative Integer: %d\n", negative_integer));
 
-    printf("========== POINTER TESTS ==========\n");
-    ret_ft = ft_printf("ft : |%p|\n", p);
-    ret_printf = printf("sys: |%p|\n\n", p);
-    printf("return(ft/sys): %d / %d\n\n", ret_ft, ret_printf);
+    // Unsigned integer
+    printf("|%d|\n", ft_printf("Unsigned Integer: %u\n", unsigned_integer));
+    printf("|%d|\n", printf("Unsigned Integer: %u\n", unsigned_integer));
 
-    ret_ft = ft_printf("ft : |%p|\n", null_p);
-    ret_printf = printf("sys: |%p|\n\n", null_p);
-    printf("return(ft/sys): %d / %d\n\n", ret_ft, ret_printf);
+    // Large unsigned integer
+    printf("|%d|\n", ft_printf("Large Unsigned Integer: %u\n", large_unsigned_integer));
+    printf("|%d|\n", printf("Large Unsigned Integer: %u\n", large_unsigned_integer));
 
-    printf("========== DECIMAL / INTEGER TESTS ==========\n");
-    ret_ft = ft_printf("ft : |%d| |%i| |%d|\n", d, neg, zero);
-    ret_printf = printf("sys: |%d| |%i| |%d|\n\n", d, neg, zero);
-    printf("return(ft/sys): %d / %d\n\n", ret_ft, ret_printf);
+    // Hexadecimal (lowercase)
+    printf("|%d|\n", ft_printf("Hexadecimal (lowercase): %x\n", unsigned_integer));
+    printf("|%d|\n", printf("Hexadecimal (lowercase): %x\n", unsigned_integer));
 
-    ret_ft = ft_printf("ft : |%d| |%d|\n", INT_MAX, INT_MIN);
-    ret_printf = printf("sys: |%d| |%d|\n\n", INT_MAX, INT_MIN);
-    printf("return(ft/sys): %d / %d\n\n", ret_ft, ret_printf);
+    // Hexadecimal (uppercase)
+    printf("|%d|\n", ft_printf("Hexadecimal (uppercase): %X\n", unsigned_integer));
+    printf("|%d|\n", printf("Hexadecimal (uppercase): %X\n", unsigned_integer));
 
-    printf("========== UNSIGNED TESTS ==========\n");
-    ret_ft = ft_printf("ft : |%u| |%u| |%u|\n", u, zero, 1);
-    ret_printf = printf("sys: |%u| |%u| |%u|\n\n", u, zero, 1);
-    printf("return(ft/sys): %d / %d\n\n", ret_ft, ret_printf);
+    // Pointer
+    printf("|%d|\n", ft_printf("Pointer: %p\n", pointer));
+    printf("|%d|\n", printf("Pointer: %p\n", pointer));
 
-    printf("========== HEXADECIMAL TESTS ==========\n");
-    ret_ft = ft_printf("ft : |%x| |%X|\n", u, u);
-    ret_printf = printf("sys: |%x| |%X|\n\n", u, u);
-    printf("return(ft/sys): %d / %d\n\n", ret_ft, ret_printf);
+    // Percent sign
+    printf("|%d|\n", ft_printf("Percent Sign: %%\n"));
+    printf("|%d|\n", printf("Percent Sign: %%\n"));
 
-    ret_ft = ft_printf("ft : |%x| |%X|\n", zero, 255);
-    ret_printf = printf("sys: |%x| |%X|\n\n", zero, 255);
-    printf("return(ft/sys): %d / %d\n\n", ret_ft, ret_printf);
+    printf("|%d|\n", ft_printf("Percent Sign one: %\n"));
+    printf("|%d|\n", printf("Percent Sign one: %\n"));
 
-    printf("========== PERCENT SIGN TESTS ==========\n");
-    ret_ft = ft_printf("ft : |%%|\n");
-    ret_printf = printf("sys: |%%|\n\n");
-    printf("return(ft/sys): %d / %d\n\n", ret_ft, ret_printf);
+    printf("|%d|\n", ft_printf("%\n"));
+    printf("|%d|\n", printf("%\n"));
 
-    printf("========== MIXED TESTS ==========\n");
-    ret_ft = ft_printf("ft : Char:%c Str:%s Ptr:%p Dec:%d Int:%i Uns:%u Hex:%x HEX:%X %%\n",
-        c, s, p, d, neg, u, u, u);
-    ret_printf = printf("sys: Char:%c Str:%s Ptr:%p Dec:%d Int:%i Uns:%u Hex:%x HEX:%X %%\n\n",
-        c, s, p, d, neg, u, u, u);
-    printf("return(ft/sys): %d / %d\n\n", ret_ft, ret_printf);
 
-    printf("========== LENGTH / STRESS TESTS ==========\n");
-    char long_str[1024];
-    for (int i = 0; i < 1023; i++)
-        long_str[i] = 'A' + (i % 26);
-    long_str[1023] = '\0';
-    ret_ft = ft_printf("ft : %s\n", long_str);
-    ret_printf = printf("sys: %s\n\n", long_str);
-    printf("return(ft/sys): %d / %d\n\n", ret_ft, ret_printf);
-
-    printf("========== NULL FORMAT TEST (should handle gracefully) ==========\n");
-    ret_ft = ft_printf(NULL);
-    ret_printf = printf(NULL); // Undefined, but to compare
-    printf("return(ft/sys): %d / %d\n", ret_ft, ret_printf);
-
-    return 0;
+    return (0);
 }
-

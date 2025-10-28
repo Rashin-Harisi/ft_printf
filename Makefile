@@ -8,6 +8,7 @@ SRC			= ft_printf.c\
 			  print_decimal.c\
 			  print_hex_big.c\
 			  print_hex_small.c\
+			  ft_hex_convert.c\
 			  print_pointer.c\
 			  print_string.c\
 			  print_unsigned.c

@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:35:44 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/27 15:46:12 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/10/28 19:47:52 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -68,18 +68,15 @@ void	print_unsigned(unsigned int n, t_flags *flags, int *total_length)
 {
 	int		width;
 	char	*nbr;
-	int		length;
 	int		zero_precision;
 
-	length = 0;
 	zero_precision = 0;
 	width = width_zero_handler(n, flags, &zero_precision, &nbr);
 	if (flags->minus == 0)
 		no_flags_minus(flags, &width, total_length, &zero_precision);
-	while (zero_precision-- > 0)
-		zero_print_handler(&zero_precision, total_length);
+	zero_print_handler(&zero_precision, total_length);
 	write(1, nbr, ft_strlen(nbr));
-	(*total_length) += length;
+	(*total_length) += ft_strlen(nbr);
 	if (flags->minus == 1)
 		space_print_handler(&width, total_length);
 	free(nbr);
