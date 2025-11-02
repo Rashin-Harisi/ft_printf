@@ -5,87 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/28 21:35:09 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/28 21:35:20 by rabdolho         ###   ########.fr       */
+/*   Created: 2025/10/30 18:41:51 by rabdolho          #+#    #+#             */
+/*   Updated: 2025/10/31 17:26:06 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
-
-// int main() {
-//     // Testing format specifiers with different types of arguments
-//     char character = 'A';
-//     char *string = "Hello, world!";
-// 	char *string2 = NULL;
-//     char *string3;
-//     char  mina[10];
-//     int integer = 42;
-//     unsigned int unsigned_integer = 123;
-//     void *pointer = (void *)0x12345678;
-//     int a;
-//     int b = 0;
-//     int c = INT_MIN;
-//     // Testing each format specifier
-//     ft_printf("%d\n", b);
-//     printf("%d\n\n", b);
-    
-//     ft_printf("%d\n", c);
-//     printf("%d\n\n", c);
-
-//     ft_printf("hello%s mina\n", mina);
-//     printf("hello%s mina\n\n", mina);
-
-
-
-
-//     printf("|%d|\n", ft_printf("Character: %c\n", character));
-//     printf("|%d|\n", printf("Character: %c\n", character));
-//     printf("|%d|\n", ft_printf("String: %s\n", string));
-//     printf("|%d|\n", printf("String: %s\n", string));
-//     printf("|%d|\n", ft_printf("String = NULL: %s\n", string2));
-//     printf("|%d|\n", printf("String = NULL: %s\n", string2)); 
-//     	int num_null_test2 = ft_printf("String = EMPTY: %s\n", string3);
-//     	int num_null_main2 = printf("String = EMPTY: %s\n", string3);
-
-//     printf("|%d|\n", ft_printf("just one persent:%\n"));
-//     printf("|%d|\n", printf("just one persent:%\n"));
-//     printf("|%d|\n", ft_printf("Percentage: %%\n"));
-//     printf("|%d|\n", printf("Percentage: %%\n"));
-
-
-//     printf("|%d|\n", ft_printf("Pointer: %p\n", pointer));
-//     printf("|%d|\n", printf("Pointer: %p\n", pointer));
-//     printf("|%d|\n", ft_printf("Decimal Integer: %d\n", integer));
-//     printf("|%d|\n", printf("Decimal Integer: %d\n", integer));
-//     printf("|%d|\n", ft_printf("Decimal Integer (unsigned): %u\n", unsigned_integer));
-//     printf("|%d|\n", printf("Decimal Integer (unsigned): %u\n", unsigned_integer));
-//     printf("|%d|\n", ft_printf("Hexadecimal Integer: %x\n", integer));
-//     printf("|%d|\n", printf("Hexadecimal Integer: %x\n", integer));
-//     printf("|%d|\n", ft_printf("Hexadecimal Integer (uppercase): %X\n", integer));
-//     printf("|%d|\n", printf("Hexadecimal Integer (uppercase): %X\n", integer));
-//     printf("|%d|\n", ft_printf("test:%d\n", a));
-//     printf("|%d|\n", printf("main:%d\n", a));
-//     printf("|%d|\n", ft_printf("print here the null\n"));
-//     printf("|%d|\n", printf("print here the null\n"));
-// 	int num_null_test = ft_printf(NULL);
-// 	int num_null_main = printf(NULL);
-//     printf("|%d|\n", ft_printf("test:%d\n", num_null_test));
-//     printf("|%d|\n", printf("main:%d\n", num_null_main));
-
-//     printf("|%d|\n", ft_printf("test:%d, %s, %c, %X\n", 1234, "testtest", 200, 8978));
-//     printf("|%d|\n", printf("main:%d, %s, %c, %X\n", 1234, "testtest", 200, 8978));
-
-//     return (0);
-// }
-
-
-
 #include <stdio.h>
 #include <limits.h>
 
-// Prototype for your ft_printf function
-int ft_printf(const char *format, ...);
-
-int main() {
+int main(void)
+{
+    int ret1, ret2;
+    int a = 42;
+    void *ptr = &a;
     char character = 'A';
     char *string = "Hello, World!";
     char *null_string = NULL;
@@ -95,6 +27,7 @@ int main() {
     unsigned int large_unsigned_integer = UINT_MAX;
     void *pointer = &integer;
 
+    printf("\n===================== Simple test ============================\n");
     // Character
     printf("|%d|\n", ft_printf("Character: %c\n", character));
     printf("|%d|\n", printf("Character: %c\n", character));
@@ -141,10 +74,100 @@ int main() {
 
     printf("|%d|\n", ft_printf("Percent Sign one: %\n"));
     printf("|%d|\n", printf("Percent Sign one: %\n"));
-
+    
     printf("|%d|\n", ft_printf("%\n"));
     printf("|%d|\n", printf("%\n"));
 
+    printf("\n====================================== complecated test ==================\n");
+    printf("\n===================== BASIC FUNCTIONALITY =====================\n");
+    ret1 = ft_printf("Hello %s %d!\n", "Rashin", 2025);
+    ret2 = printf("Hello %s %d!\n", "Rashin", 2025);
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
 
+    printf("===================== FLAGS COMBINATIONS =====================\n");
+
+    printf("\n-- ZERO & WIDTH --\n");
+    ret1 = ft_printf("|%010d| |%010i| |%010u| |%010x| |%010X|\n", 42, -42, 42u, 42, 42);
+    ret2 = printf("|%010d| |%010i| |%010u| |%010x| |%010X|\n", 42, -42, 42u, 42, 42);
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
+
+    printf("\n-- LEFT ALIGN ( - ) --\n");
+    ret1 = ft_printf("|%-10d| |%-10i| |%-10s| |%-10x|\n", 42, -42, "Hi", 42);
+    ret2 = printf("|%-10d| |%-10i| |%-10s| |%-10x|\n", 42, -42, "Hi", 42);
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
+
+    printf("\n-- PLUS ( + ) and SPACE --\n");
+    ret1 = ft_printf("|%+d| |% d| |%+i| |% i|\n", 42, 42, -42, -42);
+    ret2 = printf("|%+d| |% d| |%+i| |% i|\n", 42, 42, -42, -42);
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
+
+    printf("\n-- HASH (#) FLAG --\n");
+    ret1 = ft_printf("|%#x| |%#X| |%#8x| |%#08x| |%#x|\n", 0, 0, 42, 42, UINT_MAX);
+    ret2 = printf("|%#x| |%#X| |%#8x| |%#08x| |%#x|\n", 0, 0, 42, 42, UINT_MAX);
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
+
+    printf("\n-- COMBINED FLAGS --\n");
+    ret1 = ft_printf("|%#-10x| |%0#10x| |%#010x| |%#-010x|\n", 255, 255, 255, 255);
+    ret2 = printf("|%#-10x| |%0#10x| |%#010x| |%#-010x|\n", 255, 255, 255, 255);
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
+
+    printf("\n-- WIDTH + PRECISION --\n");
+    ret1 = ft_printf("|%10.5d| |%10.5i| |%10.5u| |%10.5x| |%10.5X|\n", 42, -42, 42, 42, 42);
+    ret2 = printf("|%10.5d| |%10.5i| |%10.5u| |%10.5x| |%10.5X|\n", 42, -42, 42, 42, 42);
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
+    
+    printf("\n-- ZERO + PRECISION (should ignore zero flag) --\n");
+    ret1 = ft_printf("|%010.5d| |%010.5i| |%010.5u| |%010.5x|\n", 42, -42, 42, 42);
+    ret2 = printf("|%010.5d| |%010.5i| |%010.5u| |%010.5x|\n", 42, -42, 42, 42);
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
+
+    printf("\n-- COMBINATION OF FLAGS + WIDTH + PRECISION --\n");
+    ret1 = ft_printf("|%#+10.5x| |% -10.5d| |%0+10.5i| |%-+10.5d|\n", 255, 255, 255, -255);
+    ret2 = printf("|%#+10.5x| |% -10.5d| |%0+10.5i| |%-+10.5d|\n", 255, 255, 255, -255);
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
+
+    printf("\n===================== POINTER & STRING =====================\n");
+    ret1 = ft_printf("Pointer: %p | NULL: %p | Wide: %20p\n", ptr, NULL, ptr);
+    ret2 = printf("Pointer: %p | NULL: %p | Wide: %20p\n", ptr, NULL, ptr);
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
+
+    ret1 = ft_printf("String: |%.5s| |%10.3s| |%-10.4s|\n", "HelloWorld", "Test", "C");
+    ret2 = printf("String: |%.5s| |%10.3s| |%-10.4s|\n", "HelloWorld", "Test", "C");
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
+
+    printf("\n===================== INVALID / IGNORED FLAGS =====================\n");
+
+    ret1 = ft_printf("Invalid flag on string: |%#s| |%0s| |%+s|\n", "Hi", "There", "World");
+    ret2 = printf("Invalid flag on string: |%#s| |%0s| |%+s|\n", "Hi", "There", "World");
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
+
+    ret1 = ft_printf("Invalid flag on char: |%#c| |%0c| |%+c|\n", 'A', 'B', 'C');
+    ret2 = printf("Invalid flag on char: |%#c| |%0c| |%+c|\n", 'A', 'B', 'C');
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
+
+    ret1 = ft_printf("Invalid flag on pointer: |%+p| |%0p| |% p|\n", ptr, ptr, ptr);
+    ret2 = printf("Invalid flag on pointer: |%+p| |%0p| |% p|\n", ptr, ptr, ptr);
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
+
+    printf("\n===================== EXTREME VALUES =====================\n");
+    ret1 = ft_printf("INT_MIN: %d | INT_MAX: %d | UINT_MAX: %u\n", INT_MIN, INT_MAX, UINT_MAX);
+    ret2 = printf("INT_MIN: %d | INT_MAX: %d | UINT_MAX: %u\n", INT_MIN, INT_MAX, UINT_MAX);
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
+
+    ret1 = ft_printf("Zero precision with zero value: |%.0d| |%.0x| |%.0u|\n", 0, 0, 0);
+    ret2 = printf("Zero precision with zero value: |%.0d| |%.0x| |%.0u|\n", 0, 0, 0);
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
+
+    ret1 = ft_printf("Long width + precision: |%50.40d|\n", 123456);
+    ret2 = printf("Long width + precision: |%50.40d|\n", 123456);
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
+
+    printf("\n===================== MIXED FORMATTING =====================\n");
+    ret1 = ft_printf("Mix: %s %d %#x %+i %u %p %%\n", "Rashin", -42, 255, 42, 300u, ptr);
+    ret2 = printf("Mix: %s %d %#x %+i %u %p %%\n", "Rashin", -42, 255, 42, 300u, ptr);
+    printf("ft:%d | sys:%d\n\n", ret1, ret2);
+
+
+	ft_printf("my test |%010u|\n", 42u);
     return (0);
 }

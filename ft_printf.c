@@ -6,11 +6,20 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 20:53:33 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/28 19:24:19 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/10/31 17:17:00 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
-#include <stdio.h>
+#include <unistd.h>
+
+static int	valid_specifier(const char str)
+{
+	if (str == 'c' || str == 's' || str == 'p' || str =='d'
+		|| str == 'u' || str == 'i' || str == 'x' ||str == 'X' || str == '%')
+		return (1);
+	else
+		return (0);
+}
 
 static void	print_handler(const char str, va_list *args,
 	t_flags *flags, int *total_length)
@@ -43,7 +52,15 @@ static void	format_specifier_handler(const char **str, va_list *args,
 	ft_memset(flags, 0, sizeof(*flags));
 	check_flags(flags, str);
 	print_handler(**str, args, flags, total_length);
-	(*str)++;
+	if (valid_specifier(**str))
+		(*str)++;
+	else
+	{
+		ft_putchar_fd('%', 1);
+		ft_putchar_fd(**str, 1);
+		(*total_length) += 2;
+		(*str)++;
+	}
 }
 
 static void	print_char_handler(const char **str, int *total_length)
@@ -70,7 +87,7 @@ int	ft_printf(const char *str, ...)
 			format_specifier_handler(&str, &args, &flags, &total_length);
 		else if (*str == '\n')
 		{
-			ft_putchar_fd('\n', 1);
+			write(1, "\n", 1);
 			total_length++;
 			str++;
 		}

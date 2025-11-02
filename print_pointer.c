@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 18:18:58 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/28 21:31:52 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/02 18:56:38 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -27,12 +27,10 @@ char	*pointer_hex_convert(unsigned long ptr)
 		number = number / 16;
 		count++;
 	}
-	result = malloc((count + 3) * sizeof(char));
+	result = malloc((count + 1) * sizeof(char));
 	if (!result)
 		return (NULL);
-	result[0] = '0';
-	result[1] = 'x';
-	result[count + 2] = '\0';
+	result[count] = '\0';
 	while (count-- > 0)
 	{
 		result[count + 2] = hex[ptr % 16];
@@ -85,7 +83,7 @@ static void	not_minus_handler(t_flags *flags, int *total_length,
 	}
 }
 
-static void	no_flags_minus(int *width, int *total_length)
+static void	yes_flags_minus(int *width, int *total_length)
 {
 	while ((*width)--)
 	{
@@ -105,15 +103,17 @@ void	print_pointer(void *ptr, t_flags *flags, int *total_length)
 		not_minus_handler(flags, total_length, &width, pre);
 	if (flags->zero == 1)
 	{
-		ft_putstr_fd(&result[2], 1);
-		(*total_length) += ft_strlen(result) - 2;
+		ft_putstr_fd(result, 1);
+		(*total_length) += ft_strlen(result);
 	}
 	else
 	{
+		ft_putstr_fd("0x", 1);
+		(*total_length) += 2;
 		ft_putstr_fd(result, 1);
 		(*total_length) += ft_strlen(result);
 	}
 	if (flags->minus == 1)
-		no_flags_minus(&width, total_length);
+		yes_flags_minus(&width, total_length);
 	free(result);
 }

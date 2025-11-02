@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 21:00:27 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/28 21:04:28 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/02 18:29:21 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -14,13 +14,11 @@
 #include <unistd.h>
 
 static int	width_hash_handler(t_flags *flags, int *length,
-	int *zero_precision, int *hash)
+	int *zero_precision)
 {
 	int	width;
 
 	width = 0;
-	if (flags->hash == 1)
-		*hash = 1;
 	if (flags->dot == 1)
 		flags->zero = 0;
 	if (flags->dot == 1 && flags->precision > (*length))
@@ -91,12 +89,13 @@ void	print_hex_big(unsigned int n, t_flags *flags, int *total_length)
 
 	hash = 0;
 	zero_precision = 0;
-	if (n == 0)
-		nbr = ft_strdup("0");
-	else
-		nbr = hex_convert_big(n);
+	nbr = hex_convert_big(n);
 	length = ft_strlen(nbr);
-	width = width_hash_handler(flags, &length, &zero_precision, &hash);
+	if (flags->hash == 1 && n != 0)
+		hash = 1;
+	if (flags->dot && n == 0 && flags->precision == 0)
+		length = 0;
+	width = width_hash_handler(flags, &length, &zero_precision);
 	if (flags->minus == 0)
 		no_flags_minus(flags, &hash, total_length, &width);
 	hash_zero_handler(&hash, total_length, &zero_precision);

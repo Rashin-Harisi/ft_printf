@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 19:55:43 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/28 21:20:20 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/02 18:26:45 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -27,6 +27,8 @@ char	*hex_convert_big(unsigned int nbr)
 		number = number / 16;
 		count++;
 	}
+	if (nbr == 0)
+		count++;
 	result = malloc((count + 1) * sizeof(char));
 	if (!result)
 		return (NULL);
@@ -54,6 +56,8 @@ char	*hex_convert_small(unsigned int nbr)
 		number = number / 16;
 		count++;
 	}
+	if (nbr == 0)
+		count++;
 	result = malloc((count + 1) * sizeof(char));
 	if (!result)
 		return (NULL);
