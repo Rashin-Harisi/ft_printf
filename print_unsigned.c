@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 16:35:44 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/11/02 17:25:07 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/03 15:34:40 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -14,7 +14,7 @@
 #include <unistd.h>
 
 static int	width_zero_handler(t_flags *flags,
-	int *zero_precision, int  *length)
+	int *zero_precision, int *length)
 {
 	int		width;
 
@@ -71,7 +71,7 @@ void	print_unsigned(unsigned int n, t_flags *flags, int *total_length)
 	nbr = ft_utoa(n);
 	length = ft_strlen(nbr);
 	if (flags->dot && n == 0 && flags->precision == 0)
-                length = 0;
+		length = 0;
 	width = width_zero_handler(flags, &zero_precision, &length);
 	if (flags->minus == 0)
 		no_flags_minus(flags, &width, total_length, &zero_precision);

@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 18:18:58 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/11/03 14:33:48 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/03 15:38:30 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -97,7 +97,6 @@ static void	not_minus_handler(t_flags *flags, int *total_length,
 	}
 }
 
-
 void	print_pointer(void *ptr, t_flags *flags, int *total_length)
 {
 	char	*result;
@@ -118,7 +117,7 @@ void	print_pointer(void *ptr, t_flags *flags, int *total_length)
 	}
 	else
 	{
-		if ( flags->minus)
+		if (flags->minus)
 			sign_check(flags, &width, total_length);
 		ft_putstr_fd("0x", 1);
 		(*total_length) += 2;
@@ -127,11 +126,11 @@ void	print_pointer(void *ptr, t_flags *flags, int *total_length)
 	}
 	if (flags->minus == 1)
 	{
-	    while (width--)
-    	{
-        	ft_putchar_fd(' ', 1);
-        	(*total_length)++;
-    	}	
+		while (width--)
+		{
+			ft_putchar_fd(' ', 1);
+			(*total_length)++;
+		}
 	}
 	free(result);
 }

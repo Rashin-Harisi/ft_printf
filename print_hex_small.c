@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 21:00:27 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/11/02 18:22:41 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/03 15:33:11 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -94,7 +94,7 @@ void	print_hex_small(unsigned int n, t_flags *flags, int *total_length)
 	if (flags->hash == 1 && n != 0)
 		hash = 1;
 	if (flags->dot && n == 0 && flags->precision == 0)
-                length = 0;
+		length = 0;
 	width = width_hash_handler(flags, &length, &zero_precision);
 	if (flags->minus == 0)
 		no_flags_minus(flags, &hash, total_length, &width);

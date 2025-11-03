@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 20:53:33 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/31 17:17:00 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/03 15:35:24 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -14,8 +14,8 @@
 
 static int	valid_specifier(const char str)
 {
-	if (str == 'c' || str == 's' || str == 'p' || str =='d'
-		|| str == 'u' || str == 'i' || str == 'x' ||str == 'X' || str == '%')
+	if (str == 'c' || str == 's' || str == 'p' || str == 'd'
+		|| str == 'u' || str == 'i' || str == 'x' || str == 'X' || str == '%')
 		return (1);
 	else
 		return (0);
