@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:41:51 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/31 17:26:06 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/03 15:13:28 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -167,7 +167,55 @@ int main(void)
     ret2 = printf("Mix: %s %d %#x %+i %u %p %%\n", "Rashin", -42, 255, 42, 300u, ptr);
     printf("ft:%d | sys:%d\n\n", ret1, ret2);
 
+	printf("===============================================================\n");
+	ft_printf("my test |%#p|\n", pointer);
+	printf("|%#p|\n", pointer);
 
-	ft_printf("my test |%010u|\n", 42u);
+	ft_printf("my test |% +025p|\n", pointer);
+    printf("|% +025p|\n", pointer);
+
+	ft_printf("my test |%-+025p|\n", pointer);
+    printf("|%-+025p|\n", pointer);
+	
+	
+	ft_printf("my test |%+p|\n", pointer);
+    printf("|%+p|\n", pointer);
+
+	ft_printf("my test |% p|\n", pointer);
+    printf("|% p|\n", pointer);
+
+
+	printf("===============================================================\n");
+	ft_printf("my test |%+d|\n", 42);
+    printf("|%+d|\n", 42);
+
+	ft_printf("my test |%+i|\n", 42);
+    printf("|%+i|\n", 42);
+
+	ft_printf("my test |%+u|\n", 42);
+    printf("|%+u|\n", 42);
+
+	ft_printf("my test |%+x|\n", 42);
+    printf("|%+x|\n", 42);
+
+	ft_printf("my test |%+X|\n", 42);
+    printf("|%+X|\n", 42);
+	
+
+	printf("===============================================================\n");
+    ft_printf("my test |% d|\n", 42);
+    printf("|% d|\n", 42);
+
+    ft_printf("my test |% i|\n", 42);
+    printf("|% i|\n", 42);
+
+    ft_printf("my test |% u|\n", 42);
+    printf("|% u|\n", 42);
+
+    ft_printf("my test |% x|\n", 42);
+    printf("|% x|\n", 42);
+
+    ft_printf("my test |% X|\n", 42);
+    printf("|% X|\n", 42);
     return (0);
 }

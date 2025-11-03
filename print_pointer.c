@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 18:18:58 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/11/02 18:56:38 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/03 14:33:48 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -33,41 +33,55 @@ char	*pointer_hex_convert(unsigned long ptr)
 	result[count] = '\0';
 	while (count-- > 0)
 	{
-		result[count + 2] = hex[ptr % 16];
+		result[count] = hex[ptr % 16];
 		ptr = ptr / 16;
 	}
 	return (result);
 }
 
-static int	prt_handler(t_flags *flags, void *ptr, char **result, char **pre)
+static int	prt_handler(t_flags *flags, void *ptr, char **result)
 {
 	int	length;
 	int	width;
 
-	*pre = "0x";
-	if (ptr == NULL)
-	{
-		*result = ft_strdup("(nil)");
-		*pre = "";
-	}
-	else
-		*result = pointer_hex_convert((unsigned long)ptr);
+	if (flags->plus)
+		flags->space = 0;
+	*result = pointer_hex_convert((unsigned long)ptr);
 	length = ft_strlen(*result);
 	if (flags->width > length)
-		width = flags->width - length;
+		width = flags->width - length - 2;
 	else
 		width = 0;
+	if (flags->plus || flags->space)
+		width++;
 	return (width);
 }
 
-static void	not_minus_handler(t_flags *flags, int *total_length,
-	int *width, char *pre)
+static void	sign_check(t_flags *flags, int *width, int *total_length)
 {
+	if (flags->plus && (*width) > 0)
+	{
+		(*width)--;
+		ft_putchar_fd('+', 1);
+		(*total_length)++;
+	}
+	else if (flags->space && (*width) > 0)
+	{
+		(*width)--;
+		ft_putchar_fd(' ', 1);
+		(*total_length)++;
+	}
 	if (flags->zero == 1)
 	{
-		ft_putstr_fd(pre, 1);
+		ft_putstr_fd("0x", 1);
 		(*total_length) += 2;
 	}
+}
+
+static void	not_minus_handler(t_flags *flags, int *total_length,
+	int *width)
+{
+	sign_check(flags, width, total_length);
 	while ((*width)--)
 	{
 		if (flags->zero == 1)
@@ -83,37 +97,41 @@ static void	not_minus_handler(t_flags *flags, int *total_length,
 	}
 }
 
-static void	yes_flags_minus(int *width, int *total_length)
-{
-	while ((*width)--)
-	{
-		ft_putchar_fd(' ', 1);
-		(*total_length)++;
-	}
-}
 
 void	print_pointer(void *ptr, t_flags *flags, int *total_length)
 {
 	char	*result;
 	int		width;
-	char	*pre;
 
-	width = prt_handler(flags, ptr, &result, &pre);
+	if (ptr == NULL)
+	{
+		(*total_length) += ft_strlen("(nil)");
+		return (ft_putstr_fd("(nil)", 1));
+	}
+	width = prt_handler(flags, ptr, &result);
 	if (flags->minus == 0)
-		not_minus_handler(flags, total_length, &width, pre);
-	if (flags->zero == 1)
+		not_minus_handler(flags, total_length, &width);
+	if (flags->zero == 1 && flags->minus == 0)
 	{
 		ft_putstr_fd(result, 1);
 		(*total_length) += ft_strlen(result);
 	}
 	else
 	{
+		if ( flags->minus)
+			sign_check(flags, &width, total_length);
 		ft_putstr_fd("0x", 1);
 		(*total_length) += 2;
 		ft_putstr_fd(result, 1);
 		(*total_length) += ft_strlen(result);
 	}
 	if (flags->minus == 1)
-		yes_flags_minus(&width, total_length);
+	{
+	    while (width--)
+    	{
+        	ft_putchar_fd(' ', 1);
+        	(*total_length)++;
+    	}	
+	}
 	free(result);
 }
