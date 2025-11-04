@@ -6,38 +6,11 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 18:18:58 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/11/03 15:38:30 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/04 12:10:10 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 #include <stdlib.h>
-
-char	*pointer_hex_convert(unsigned long ptr)
-{
-	char			*hex;
-	char			*result;
-	unsigned long	number;
-	int				count;
-
-	hex = "0123456789abcdef";
-	number = ptr;
-	count = 0;
-	while (number != 0)
-	{
-		number = number / 16;
-		count++;
-	}
-	result = malloc((count + 1) * sizeof(char));
-	if (!result)
-		return (NULL);
-	result[count] = '\0';
-	while (count-- > 0)
-	{
-		result[count] = hex[ptr % 16];
-		ptr = ptr / 16;
-	}
-	return (result);
-}
 
 static int	prt_handler(t_flags *flags, void *ptr, char **result)
 {
@@ -97,6 +70,25 @@ static void	not_minus_handler(t_flags *flags, int *total_length,
 	}
 }
 
+static void	print_handler(t_flags *flags, int *width,
+	int *total_length, char *result)
+{
+	if (flags->zero == 1 && flags->minus == 0)
+	{
+		ft_putstr_fd(result, 1);
+		(*total_length) += ft_strlen(result);
+	}
+	else
+	{
+		if (flags->minus)
+			sign_check(flags, width, total_length);
+		ft_putstr_fd("0x", 1);
+		(*total_length) += 2;
+		ft_putstr_fd(result, 1);
+		(*total_length) += ft_strlen(result);
+	}
+}
+
 void	print_pointer(void *ptr, t_flags *flags, int *total_length)
 {
 	char	*result;
@@ -110,20 +102,7 @@ void	print_pointer(void *ptr, t_flags *flags, int *total_length)
 	width = prt_handler(flags, ptr, &result);
 	if (flags->minus == 0)
 		not_minus_handler(flags, total_length, &width);
-	if (flags->zero == 1 && flags->minus == 0)
-	{
-		ft_putstr_fd(result, 1);
-		(*total_length) += ft_strlen(result);
-	}
-	else
-	{
-		if (flags->minus)
-			sign_check(flags, &width, total_length);
-		ft_putstr_fd("0x", 1);
-		(*total_length) += 2;
-		ft_putstr_fd(result, 1);
-		(*total_length) += ft_strlen(result);
-	}
+	print_handler(flags, &width, total_length, result);
 	if (flags->minus == 1)
 	{
 		while (width--)

@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 17:39:40 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/28 21:02:01 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/04 11:48:50 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FT_PRINTF_H
@@ -33,6 +33,7 @@ void	check_flags(t_flags *flags, const char **str);
 void	print_char(char c, t_flags *flags, int *total_length);
 void	print_string(char *str, t_flags *flags, int *total_length);
 void	print_pointer(void *ptr, t_flags *flags, int *total_length);
+char	*pointer_hex_convert(unsigned long ptr);
 void	print_decimal(int n, t_flags *flags, int *total_length);
 char	*sign_nbr_handler_decimal(char *sign, int n, t_flags *flags);
 int		width_handler_decimal(t_flags *flags, int *zero_precision,
