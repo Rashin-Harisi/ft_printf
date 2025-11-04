@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:41:51 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/11/04 12:11:42 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/04 14:10:17 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -217,5 +217,38 @@ int main(void)
 
     ft_printf("my test |% X|\n", 42);
     printf("|% X|\n", 42);
-    return (0);
+
+	printf("================================Francinettie errors=============================\n");
+	ft_printf("my function : |%.03s|\n", NULL);
+	printf("|%.03s|\n", NULL);
+
+    ft_printf("my function : |%3.1s|\n", NULL);
+    printf("|%3.1s|\n", NULL);
+
+    ft_printf("my function : |%9.1s|\n", NULL);
+    printf("|%9.1s|\n", NULL);
+
+    ft_printf("my function : |%-3.1s|\n", NULL);
+    printf("|%-3.1s|\n", NULL);
+
+    ft_printf("my function : |%-9.1s|\n", NULL);
+    printf("|%-9.1s|\n", NULL);
+
+   ft_printf("my function : |{%-13p}|\n", pointer);
+   printf("|{%-13p}|\n", pointer);
+
+    ft_printf("my function : |p3 %.4s\n|\n", NULL);
+   printf("|p3 %.4s\n|", NULL);
+
+
+   ft_printf("my function : |%15p\n|\n", NULL);
+   printf("|%15p\n|\n", NULL);
+
+   ft_printf("my function : |%-15p\n|\n", NULL);
+   printf("|%-15p\n|\n", NULL);
+
+   ft_printf("my function : |%50.2s|\n", NULL);
+   printf("|%50.2s|\n", NULL);
+
+   return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 18:18:58 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/11/04 12:10:10 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/04 14:10:01 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -21,9 +21,8 @@ static int	prt_handler(t_flags *flags, void *ptr, char **result)
 		flags->space = 0;
 	*result = pointer_hex_convert((unsigned long)ptr);
 	length = ft_strlen(*result);
-	if (flags->width > length)
-		width = flags->width - length - 2;
-	else
+	width = flags->width - length - 2;
+	if (width < 0)
 		width = 0;
 	if (flags->plus || flags->space)
 		width++;
@@ -95,10 +94,7 @@ void	print_pointer(void *ptr, t_flags *flags, int *total_length)
 	int		width;
 
 	if (ptr == NULL)
-	{
-		(*total_length) += ft_strlen("(nil)");
-		return (ft_putstr_fd("(nil)", 1));
-	}
+		return (print_string("(nil)", flags, total_length));
 	width = prt_handler(flags, ptr, &result);
 	if (flags->minus == 0)
 		not_minus_handler(flags, total_length, &width);
