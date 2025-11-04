@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:41:51 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/11/04 14:51:39 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/04 15:19:56 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -317,5 +317,46 @@ int main(void)
 
       ft_printf("My function : |%0168.128u%0054.92x%30.171s|\n" ,2620195206u,1771128939u,NULL);
       printf("|%0168.128u%0054.92x%30.171s|\n" ,2620195206u,1771128939u,NULL);
-   return (0);
+   
+	  printf("================================Francinettie errors3=============================\n");
+	  
+	  ft_printf("My function : | % d |\n", 0);
+	  printf("| % d |\n", 0);
+
+
+	ft_printf("My function : | % d |\n", LONG_MIN);
+	printf("| % d |\n", LONG_MIN);
+
+
+
+	ft_printf("My function : | % d % d % d % d % d % d % d|\n", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+	printf("| % d % d % d % d % d % d % d|\n", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+
+	ft_printf("My function : | % i |\n", 0);
+	printf("| % i |\n", 0);
+
+	ft_printf("My function : | % i |\n", LONG_MIN);
+	printf("| % i |\n", LONG_MIN);
+
+	ft_printf("My function : | % i % i % i % i % i % i % i|\n", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+	printf("| % i % i % i % i % i % i % i|\n", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+
+
+
+	ft_printf("My function : | %+d |\n", 0);
+	printf("| %+d |\n", 0);
+
+	ft_printf("My function : | %+d |\n", LONG_MIN);
+	printf("| %+d |\n", LONG_MIN);
+
+	ft_printf("My function : | %+d %+d %+d %+d %+d %+d %+d|\n", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+	printf("| %+d %+d %+d %+d %+d %+d %+d|\n", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+
+	ft_printf("My function : | %+i |\n", 0);
+	printf("| %+i |\n", 0);
+
+	ft_printf("My function : | %+i |\n", UINT_MAX);
+	printf("| %+i |\n", UINT_MAX);
+	  
+	  return (0);
 }
