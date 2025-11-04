@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:41:51 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/11/04 14:10:17 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/04 14:51:39 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -250,5 +250,72 @@ int main(void)
    ft_printf("my function : |%50.2s|\n", NULL);
    printf("|%50.2s|\n", NULL);
 
+
+   printf("================================Francinettie errors2=============================\n");
+
+	ft_printf("My function : |%-s|\n", NULL);
+	printf("|%-s|\n", NULL);
+
+   ft_printf("My function : |%23s|\n", NULL);
+   printf("|%23s|\n", NULL);
+
+
+    ft_printf("My function : |%s|\n", NULL);
+    printf("|%s|\n", NULL);
+
+
+    ft_printf("My function : |hello, %s.|\n", NULL);
+    printf("|hello, %s.|\n", NULL);
+
+
+    ft_printf("My function : |%s|\n", NULL);
+    printf("|%s|\n", NULL);
+
+
+
+    ft_printf("My function : |%32s|\n", NULL);
+    printf("|%32s|\n", NULL);
+
+
+
+    ft_printf("My function : |%2s|\n", NULL);
+    printf("|%2s|\n", NULL);
+
+
+
+    ft_printf("My function : |%-32s|\n", NULL);
+    printf("|%-32s|\n", NULL);
+
+
+    ft_printf("My function : |%-16s|\n", NULL);
+    printf("|%-16s|\n", NULL);
+
+
+
+    ft_printf("My function : |%-3s|\n", NULL);
+    printf("|%-3s|\n", NULL);
+
+
+    ft_printf("|My function : %-10.8s|\n", NULL);
+    printf("|%-10.8s|\n", NULL);
+
+
+
+     ft_printf("My function : |Hello 42 school! %s|\n", NULL);
+     printf("|Hello 42 school! %s|\n", NULL);
+
+
+     ft_printf("My function : |%10s|\n", NULL);
+     printf("|%10s|\n", NULL);
+
+
+
+     ft_printf("|%117p%-44c%-156c%-88.109s%0%|\n" ,(void*)8225290685743754462lu,-123,65,NULL);
+     printf("|%117p%-44c%-156c%-88.109s%0%|\n" ,(void*)8225290685743754462lu,-123,65,NULL);
+
+
+
+      ft_printf("My function : |%0168.128u%0054.92x%30.171s|\n" ,2620195206u,1771128939u,NULL);
+      printf("|%0168.128u%0054.92x%30.171s|\n" ,2620195206u,1771128939u,NULL);
    return (0);
 }

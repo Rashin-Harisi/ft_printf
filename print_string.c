@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 16:54:59 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/11/04 12:54:26 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/04 14:40:45 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -14,7 +14,8 @@
 static void	null_print_handler(char **str, t_flags *flags, int *length)
 {
 	*str = "(null)";
-	if (flags->precision < 6)
+	*length = 6;
+	if (flags->dot && flags->precision < 6)
 		*length = 0;
 }
 
