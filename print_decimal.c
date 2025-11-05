@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:00:30 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/28 18:54:48 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/05 11:53:46 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -24,10 +24,7 @@ void	print_decimal(int n, t_flags *flags, int *total_length)
 
 	sign = 0;
 	zero_precision = 0;
-	if (n == 0)
-		nbr = ft_strdup("0");
-	else
-		nbr = sign_nbr_handler_decimal(&sign, n, flags);
+	nbr = sign_nbr_handler_decimal(&sign, n, flags);
 	length = ft_strlen(nbr);
 	if (flags->dot && n == 0 && flags->precision == 0)
 		length = 0;
