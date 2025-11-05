@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 09:48:35 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/13 09:48:59 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/05 15:18:56 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -17,6 +17,8 @@ int	ft_strlen(const char *str)
 {
 	int	count;
 
+	if (str == NULL)
+		return (0);
 	count = 0;
 	while (str[count] != '\0')
 	{

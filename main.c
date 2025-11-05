@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:41:51 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/11/04 15:19:56 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/05 15:46:50 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -357,6 +357,34 @@ int main(void)
 
 	ft_printf("My function : | %+i |\n", UINT_MAX);
 	printf("| %+i |\n", UINT_MAX);
-	  
+
+
+	printf("================================Francinettie errors3=============================\n");
+	
+	int a1 = ft_printf("(null)", (char)0);
+	printf("\n");
+	int a2 = printf("(null)", (char)0);
+	printf("\n");
+	printf("|a1 / a2: %d / %d|\n" , a1 , a2);
+
+	printf("------------------------------\n");
+
+	int a3 = ft_printf("(null)\n", '\0');
+    int a4 = printf("(null)\n", '\0');
+    printf("|a3 / a4: %d / %d|\n" , a3 , a4);
+
+	printf("------------------------------\n");
+
+	ft_printf("|%c|\n", NULL);
+    printf("|%c|\n", NULL);
+
+	printf("------------------------------\n");
+    ft_printf("|%c|\n", '\0');
+    printf("|%c|\n", '\0');
+
+
+	    printf("------------------------------\n");
+    ft_printf("|%s|\n", NULL);
+    printf("|%s|\n", NULL);
 	  return (0);
 }

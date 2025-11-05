@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 14:36:43 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/10/24 14:11:47 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/05 15:36:24 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -34,7 +34,7 @@ void	check_flags(t_flags *flags, const char **str)
 	if (ft_isdigit(**str))
 	{
 		flags->width = ft_atoi(*str);
-		while (ft_isdigit(**str))
+		while (**str != '\0' && ft_isdigit(**str))
 			(*str)++;
 	}
 	if (**str == '.')
@@ -45,7 +45,7 @@ void	check_flags(t_flags *flags, const char **str)
 	if (ft_isdigit(**str))
 	{
 		flags->precision = ft_atoi(*str);
-		while (ft_isdigit(**str))
+		while (**str != '\0' && ft_isdigit(**str))
 		{
 			(*str)++;
 		}

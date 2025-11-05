@@ -6,7 +6,7 @@
 /*   By: rabdolho <rabdolho@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 20:53:33 by rabdolho          #+#    #+#             */
-/*   Updated: 2025/11/03 15:35:24 by rabdolho         ###   ########.fr       */
+/*   Updated: 2025/11/05 14:14:06 by rabdolho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -77,7 +77,7 @@ int	ft_printf(const char *str, ...)
 	t_flags	flags;
 
 	if (!str || *str == '\0')
-		return (0);
+		return (-1);
 	total_length = 0;
 	ft_memset(&flags, 0, sizeof(flags));
 	va_start(args, str);
